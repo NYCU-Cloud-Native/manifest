@@ -1,21 +1,21 @@
 app:
-  replicaCount: 3
-  image:
-    repo: harbor.tsmc.n0b.me/tsmc
-    tag: latest
-  service:
-    type: ClusterIP
-  stage: stage
+    replicaCount: 3
+    image:
+        repo: harbor.tsmc.n0b.me/tsmc
+        tag: latest
+    service:
+        type: ClusterIP
+    stage: stage
 ingress:
-  ip: web-stage-ip
-  domain: stage.tsmc.n0b.me
+    ip: web-stage-ip
+    domain: stage.tsmc.n0b.me
 
 autoscaling:
-  enabled: true
-  minReplicas: 3
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 80
-  targetMemoryUtilizationPercentage: 80
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 
