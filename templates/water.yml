@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-water
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: water
+  template:
+    metadata:
+      labels:
+        app: water
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-water-container
+          image: {{ .Values.app.image.repo }}/water-crawler:{{ .Values.app.image.tag }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 50051
+          env:
+            - name: DB_URL
+              value: "http://influxdb:8086"
+            - name: DB_BUCKET
+              value: water
+            - name: DATA_URL
+              value: https://data.wra.gov.tw/Service/OpenData.aspx?format=csv&id=1602CA19-B224-4CC3-AA31-11B1B124530F
+          envFrom:
+          - secretRef:
+              name: {{ .Values.app.stage }}-db-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: water
+spec:
+  selector:
+    app: water
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 50051
+      targetPort: 50051

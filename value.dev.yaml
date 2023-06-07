@@ -11,10 +11,7 @@ ingress:
   domain: dev.tsmc-dev.n0b.me
 envs:
   db-url: influx-db
-dev-secrets:
-  db-org-id: e79a2abf68074a71
-  db-org-token: t794pjcGtwAYDji7EEquIZF5OYR962QE6-7H_lrcUlxQL6ZgJvKs-CMd3sZ4pnkjQLR297EitQZuXyrkPxDLXA==
-
+  
 autoscaling:
   enabled: true
   minReplicas: 3
