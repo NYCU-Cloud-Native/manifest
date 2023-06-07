@@ -1,0 +1,29 @@
+app:
+  replicaCount: 3
+  image:
+    repo: harbor.tsmc.n0b.me/tsmc
+    tag: latest
+  service:
+    type: ClusterIP
+  stage: dev
+ingress:
+  ip: web-dev-ip
+  domain: dev.tsmc-dev.n0b.me
+envs:
+  db-url: influx-db
+dev-secrets:
+  db-org-id: e79a2abf68074a71
+  db-org-token: t794pjcGtwAYDji7EEquIZF5OYR962QE6-7H_lrcUlxQL6ZgJvKs-CMd3sZ4pnkjQLR297EitQZuXyrkPxDLXA==
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

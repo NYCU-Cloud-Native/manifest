@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-taipower
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taipower
+  template:
+    metadata:
+      labels:
+        app: taipower
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-taipower-container
+          image: {{ .Values.app.image.repo }}/taipower-crawler:{{ .Values.app.image.tag }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 50051
+          env:
+            - name: DB_URL
+              value: "http://influxdb:8086"
+            - name: DB_BUCKET
+              value: taipower
+            - name: DATA_URL
+              value: https://data.taipower.com.tw/opendata/apply/file/d006019/001.csv
+          envFrom:
+          - secretRef:
+              name: {{ .Values.app.stage }}-db-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taipower
+spec:
+  selector:
+    app: taipower
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 50051
+      targetPort: 50051
