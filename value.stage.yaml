@@ -2,7 +2,7 @@ app:
   replicaCount: 3
   image:
     repo: harbor.tsmc.n0b.me/tsmc
-    tag: IMAGE_TAG
+    tag: latest
   service:
     type: ClusterIP
   stage: stage
