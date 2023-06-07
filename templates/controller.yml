@@ -24,7 +24,7 @@ spec:
             - name: EARTHQUAKE_CRAWLER_ENDPOINT
               value: http://earthquake:5000
             - name: WATER_CRAWLER_ENDPOINT
-              value: http://water:50051ok;jfghtdresawQQSWEFGHTYBVhttps://data.wra.gov.tw/Service/OpenData.aspx?format=csv&id=1602CA19-B224-4CC3-AA31-11B1B124530FB
+              value: http://water:50051
 
 ---
 apiVersion: v1
