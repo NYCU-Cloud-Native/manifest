@@ -21,6 +21,8 @@ spec:
           env:
             - name: TAIPOWER_CRAWLER_ENDPOINT
               value: http://taipower:50051
+            - name: EARTHQUAKE_CRAWLER_ENDPOINT
+              value: http://earthquake:5000
 
 ---
 apiVersion: v1

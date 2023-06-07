@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-earthquake
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: earthquake
+  template:
+    metadata:
+      labels:
+        app: earthquake
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-earthquake
+          image: {{ .Values.app.image.repo }}/earthquake-crawler:{{ .Values.app.image.tag }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: INFLUX_URL
+              value: "http://influxdb:8086"
+            - name: INFLUX_BUCKET
+              value: earthquake
+            - name: CWB_MEMBER_AUTH_NUMBER
+              value: CWB-301D11AD-8367-40BE-A476-70321A6A434C
+            - name: INFLUX_MEASUREMENT
+              value: earthquake
+          envFrom:
+          - secretRef:
+              name: {{ .Values.app.stage }}-db-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: earthquake
+spec:
+  selector:
+    app: earthquake
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
