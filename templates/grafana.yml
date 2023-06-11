@@ -78,6 +78,9 @@ spec:
             tcpSocket:
               port: 3000
             timeoutSeconds: 1
+          env:
+            name: GF_FEATURE_TOGGLES_ENABLE
+            value: publicDashboards
           resources:
             requests:
               cpu: 250m

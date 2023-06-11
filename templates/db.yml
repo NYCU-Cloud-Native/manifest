@@ -47,7 +47,7 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: influxdb
+  name: {{ .Release.Name }}-influxdb
 spec:
   serviceName: "influxdb"
   selector:
